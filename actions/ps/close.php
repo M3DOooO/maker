@@ -114,7 +114,7 @@ if($min_time == 'True'){
 	mysql_query("UPDATE `reports` set `status` = 'done'  WHERE `session_id` = '$reprep' ;"); 
 	mysql_query("UPDATE `reports` set `game` = '$now'       WHERE  pc_id = '$id' AND End_hour ='-';"); 
 	mysql_query("UPDATE `reports` set `shift` = '$current_shift'  WHERE  pc_id = '$id' AND `session_id` = '$reprep';"); 
-	mysql_query("UPDATE `reports` set `casheer` = '$casheer'  WHERE  pc_id = '$id' AND `session_id` = '$reprep';"); 
+	mysql_query("UPDATE `reports` set `casheer` = '$casheer'  WHERE `session_id` = '$reprep';");
 	mysql_query("UPDATE `reports` set `discount2` = '$dda'  WHERE `session_id` = '$reprep' AND End_hour = '-'");  
     mysql_query("UPDATE `reports` set `discount` = '$tdis'  WHERE `session_id` = '$reprep' AND End_hour = '-'"); 	
 	mysql_query("UPDATE `reports` set `discount_amount` = '$exact_discount'  WHERE `session_id` = '$reprep' AND End_hour = '-'");
