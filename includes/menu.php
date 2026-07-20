@@ -53,6 +53,7 @@ if($usern == 1 )
 	<li><a class="ajax-link" href="devices_takeaway.php"><i class="icon-align-justify"></i><span class="">  <?php echo $lang_287;?></span></a></li>
 	<li class="nav-header ">الإضافات</li>
  	<li><a class="ajax-link" href="devices_halls.php"><i class="icon-align-justify"></i><span class="">  القاعات</span></a></li>
+	<li><a class="ajax-link" href="cashier_daily_report.php"><i class="icon-list-alt"></i><span class="">  تقرير الكاشير</span></a></li>
 	</ul>
 	</div><!--/.well --><?php  } 
 else 
@@ -66,6 +67,7 @@ else
 	<li><a class="ajax-link" href="devices_takeaway.php"><i class="icon-align-justify"></i><span class="">  <?php echo $lang_287;?></span></a></li>
 	<li class="nav-header ">الإضافات</li>
  	<li><a class="ajax-link" href="devices_halls.php"><i class="icon-align-justify"></i><span class="">  القاعات</span></a></li>
+	<li><a class="ajax-link" href="cashier_daily_report.php"><i class="icon-list-alt"></i><span class="">  تقرير الكاشير</span></a></li>
 	
 	</ul>
 	</div><!--/.well -->
