@@ -134,7 +134,7 @@ $('#shiftauth').modal({backdrop: 'static', keyboard: false})
 	<input type="hidden" name="shift_day" value="<?php echo $Day?>"/>
 	<input type="hidden" name="shift_month" value="<?php echo $Month?>"/>
 	<br />
-	<input type="image" src="img/app/buttons/shift-end.png" onclick="return confirm('<?php echo $lang_244;?>')" />
+	<input type="image" src="img/app/buttons/shift-end.png" onclick="return confirm('تحذير: سيتم غلق الشفت بالكامل. هل تريد المتابعة؟')" />
 	</form>
 		 <br/><br/>
 
@@ -220,7 +220,7 @@ $('#shiftauth').modal({backdrop: 'static', keyboard: false})
 	<input type="hidden" name="shift_day" value="<?php echo $Day?>"/>
 	<input type="hidden" name="shift_month" value="<?php echo $Month?>"/>
 	<br/>
-	<input type="image" src="img/app/buttons/shift-end.png" onclick="return confirm('<?php echo $lang_244;?>')" />
+	<input type="image" src="img/app/buttons/shift-end.png" onclick="return confirm('تحذير: سيتم غلق الشفت بالكامل. هل تريد المتابعة؟')" />
 	</form>
 	 <br/><br/>
 	<?php echo $lang_289;?>:  
