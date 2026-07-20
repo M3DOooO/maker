@@ -123,7 +123,7 @@ if($current_shift =='One')
 	<input type="hidden" name="last_shift" value="<?php echo $last_shift?>"/>
 	<input type="hidden" name="shift_day" value="<?php echo $Day?>"/>
 	<input type="hidden" name="shift_month" value="<?php echo $Month?>"/>
-	<input type="image" src="img/app/buttons/shift-end.png"/>
+	<input type="image" src="img/app/buttons/shift-end.png" onclick="return confirm('تحذير: سيتم غلق الشفت بالكامل. هل تريد المتابعة؟')"/>
 	</form>
  	<?php 
 }
@@ -135,7 +135,7 @@ else if($current_shift =='Two')
 	<input type="hidden" name="last_shift" value="<?php echo $last_shift?>"/>
 	<input type="hidden" name="shift_day" value="<?php echo $Day?>"/>
 	<input type="hidden" name="shift_month" value="<?php echo $Month?>"/>
- 	<input type="image" src="img/app/buttons/shift-end.png"/>
+ 	<input type="image" src="img/app/buttons/shift-end.png" onclick="return confirm('تحذير: سيتم غلق الشفت بالكامل. هل تريد المتابعة؟')"/>
 	</form>
 	<?php 
 }
