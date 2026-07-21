@@ -21,8 +21,8 @@ if (!isset($mac)) {
 /*
  * Server identity used by the future sync receive API.
  */
-define('APP_RUN_MODE', 'server');
-define('SERVER_ID', getenv('SERVER_ID') ?: 'online-main');
+if (!defined('APP_RUN_MODE')) { define('APP_RUN_MODE', 'server'); }
+if (!defined('SERVER_ID')) { define('SERVER_ID', getenv('SERVER_ID') ?: 'online-main'); }
 
 /*
  * Online database settings.
@@ -38,10 +38,10 @@ $db = getenv('DB_NAME') ?: 'ps_online';
  * Sync receiver protection.
  * The local computer must use the same SYNC_API_KEY when pushing data.
  */
-define('SYNC_RECEIVE_ENABLED', (getenv('SYNC_RECEIVE_ENABLED') ?: '1') === '1');
-define('SYNC_API_KEY', getenv('SYNC_API_KEY') ?: 'change-this-secret-key');
-define('SYNC_ALLOWED_BRANCHES', getenv('SYNC_ALLOWED_BRANCHES') ?: 'main');
-define('SYNC_MAX_BATCH_SIZE', (int) (getenv('SYNC_MAX_BATCH_SIZE') ?: 100));
+if (!defined('SYNC_RECEIVE_ENABLED')) { define('SYNC_RECEIVE_ENABLED', (getenv('SYNC_RECEIVE_ENABLED') ?: '1') === '1'); }
+if (!defined('SYNC_API_KEY')) { define('SYNC_API_KEY', getenv('SYNC_API_KEY') ?: 'change-this-secret-key'); }
+if (!defined('SYNC_ALLOWED_BRANCHES')) { define('SYNC_ALLOWED_BRANCHES', getenv('SYNC_ALLOWED_BRANCHES') ?: 'main'); }
+if (!defined('SYNC_MAX_BATCH_SIZE')) { define('SYNC_MAX_BATCH_SIZE', (int) (getenv('SYNC_MAX_BATCH_SIZE') ?: 100)); }
 
 date_default_timezone_set('Africa/Cairo');
 $script_tz = date_default_timezone_get();
