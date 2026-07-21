@@ -24,9 +24,9 @@ if (!isset($mac)) {
  * Device identity used by the future sync layer.
  * Keep BRANCH_ID the same for one branch and make DEVICE_ID unique per cashier PC.
  */
-define('APP_RUN_MODE', 'computer');
-define('BRANCH_ID', getenv('BRANCH_ID') ?: 'main');
-define('DEVICE_ID', getenv('DEVICE_ID') ?: 'cashier-1');
+if (!defined('APP_RUN_MODE')) { define('APP_RUN_MODE', 'computer'); }
+if (!defined('BRANCH_ID')) { define('BRANCH_ID', getenv('BRANCH_ID') ?: 'main'); }
+if (!defined('DEVICE_ID')) { define('DEVICE_ID', getenv('DEVICE_ID') ?: 'cashier-1'); }
 
 /*
  * Local database settings.
@@ -43,11 +43,11 @@ $db = getenv('DB_NAME') ?: 'ps_local';
  * This is not used by the current old pages directly; it is prepared for the
  * upcoming sync worker/script that will push local changes when internet returns.
  */
-define('SYNC_ENABLED', (getenv('SYNC_ENABLED') ?: '1') === '1');
-define('SYNC_SERVER_URL', getenv('SYNC_SERVER_URL') ?: 'https://example.com/ps/api/sync_receive.php');
-define('SYNC_API_KEY', getenv('SYNC_API_KEY') ?: 'change-this-secret-key');
-define('SYNC_BATCH_SIZE', (int) (getenv('SYNC_BATCH_SIZE') ?: 50));
-define('SYNC_TIMEOUT_SECONDS', (int) (getenv('SYNC_TIMEOUT_SECONDS') ?: 15));
+if (!defined('SYNC_ENABLED')) { define('SYNC_ENABLED', (getenv('SYNC_ENABLED') ?: '1') === '1'); }
+if (!defined('SYNC_SERVER_URL')) { define('SYNC_SERVER_URL', getenv('SYNC_SERVER_URL') ?: 'https://example.com/ps/api/sync_receive_server.php'); }
+if (!defined('SYNC_API_KEY')) { define('SYNC_API_KEY', getenv('SYNC_API_KEY') ?: 'change-this-secret-key'); }
+if (!defined('SYNC_BATCH_SIZE')) { define('SYNC_BATCH_SIZE', (int) (getenv('SYNC_BATCH_SIZE') ?: 50)); }
+if (!defined('SYNC_TIMEOUT_SECONDS')) { define('SYNC_TIMEOUT_SECONDS', (int) (getenv('SYNC_TIMEOUT_SECONDS') ?: 15)); }
 
 date_default_timezone_set('Africa/Cairo');
 $script_tz = date_default_timezone_get();
