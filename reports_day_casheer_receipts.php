@@ -117,7 +117,7 @@ $Rcash = $_GET['casheer'];
                                 <tbody>
                                     <?php 
                                     // بناء الـ Query
-                                    $query = "SELECT * FROM reports WHERE 1=1";
+                                    $query = "SELECT *, SUM(total) as sum_total_rows, MIN(Start_hour*60 + Start_minute) as min_start_minute, MAX(End_hour*60 + End_minute) as max_end_minute FROM reports WHERE 1=1 AND End_hour != '-' AND status = 'done'";
                                     $types = "";
                                     $params = array();
                                     
@@ -178,10 +178,16 @@ $Rcash = $_GET['casheer'];
                                                 $sum_money = isset($row3['sum_money']) ? floatval($row3['sum_money']) : 0;
                                                 $stmt3->close();
                                                 
-                                                $tom = isset($row['total']) ? floatval($row['total']) : 0;
-                                                $hr = floor($tom / 3600) % 24;
+                                                $tom = isset($row['sum_total_rows']) ? floatval($row['sum_total_rows']) : 0;
+                                                $hr = floor($tom / 3600);
                                                 $mr = floor($tom / 60) % 60;
                                                 $sr = ($tom % 60);
+                                                $start_total_minutes = isset($row['min_start_minute']) ? intval($row['min_start_minute']) : 0;
+                                                $end_total_minutes = isset($row['max_end_minute']) ? intval($row['max_end_minute']) : 0;
+                                                $start_hour = floor($start_total_minutes / 60);
+                                                $start_minute = $start_total_minutes % 60;
+                                                $end_hour = floor($end_total_minutes / 60);
+                                                $end_minute = $end_total_minutes % 60;
                                                 
                                                 $shift_check = isset($row['shift']) ? $row['shift'] : '';
                                                 $discount = (isset($row['discount2']) ? floatval($row['discount2']) : 0) + (isset($row['discount_amount']) ? floatval($row['discount_amount']) : 0);
@@ -213,8 +219,8 @@ $Rcash = $_GET['casheer'];
                                                 
                                                 echo "<td>" . $shift_check2 . "</td>";
                                          echo "<td>" . htmlspecialchars(($row['year'] ?? '') . "/" . ($row['month'] ?? '') . "/" . ($row['day'] ?? '')) . "</td>";
-echo "<td>" . htmlspecialchars(($row['Start_hour'] ?? '') . ":" . ($row['Start_minute'] ?? '')) . "</td>";
-echo "<td>" . htmlspecialchars(($row['End_hour'] ?? '') . ":" . ($row['End_minute'] ?? '')) . "</td>";
+echo "<td>" . sprintf('%02d', $start_hour) . ":" . sprintf('%02d', $start_minute) . "</td>";
+echo "<td>" . sprintf('%02d', $end_hour) . ":" . sprintf('%02d', $end_minute) . "</td>";
 echo "<td>" . $hr . ":" . $mr . ":" . $sr . "</td>";
 echo "<td>" . intval($sum_items) . " " . (isset($lang_100) ? $lang_100 : 'ج.م') . "</td>";
 echo "<td>" . intval($sum_money) . " " . (isset($lang_100) ? $lang_100 : 'ج.م') . "</td>";
