@@ -64,8 +64,8 @@ $result = mysql_query("SELECT * FROM `stock` Where name = '$var1'");
 
 
  			$total = ($var2 * $var5);
-            $Day = idate('d');
-			$Month = idate('m');
+            $order_day = $shift_day;
+			$order_month = $shift_month;
 			$Year = idate('Y');
 			$Hour = idate('H');
  
@@ -74,7 +74,7 @@ $result = mysql_query("SELECT * FROM `stock` Where name = '$var1'");
 
   if($var1 != '')
   {
-   mysql_query("INSERT INTO `ps_orders` (`catagory`, `sub_cat`,`name`, `price`, `num` , `ps_id` ,`session_id`,`day`,`month`,`year`,`shift`,`casheer` ) VALUES ('$var3', '$var4', '$var1','$total','$var2','$var6','$var7','$Day','$Month','$Year','$current_shift','$casheer');"); 
+   mysql_query("INSERT INTO `ps_orders` (`catagory`, `sub_cat`,`name`, `price`, `num` , `ps_id` ,`session_id`,`day`,`month`,`year`,`shift`,`casheer` ) VALUES ('$var3', '$var4', '$var1','$total','$var2','$var6','$var7','$order_day','$order_month','$Year','$current_shift','$casheer');"); 
      mysql_query("UPDATE `stock` set `sold` = '$new'  WHERE `name` = '$var1';"); 
  }}
  
