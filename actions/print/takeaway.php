@@ -1,4 +1,4 @@
-﻿<?php session_start();
+<?php session_start();
  if( !isset($_SESSION['ps_user']) )
  {
 	echo "<script>location='../../devices.php'</script>";
@@ -65,8 +65,12 @@ $casheer = $_SESSION['ps_user'];
 
 mysql_connect("$host", "$user", "$pass") or die(mysql_error()); 
 mysql_select_db("$db") or die(mysql_error()); 
+$shift_year = idate('Y');
+
 mysql_query("UPDATE `reports2` set `casheer` = '$casheer'  WHERE `session_id` = '$order_id';");   
 mysql_query("UPDATE `reports2` set `shift` = '$current_shift'  WHERE `session_id` = '$order_id';"); 
+mysql_query("UPDATE `reports2` set `day` = '$shift_day', `month` = '$shift_month', `year` = '$shift_year' WHERE `session_id` = '$order_id';"); 
+mysql_query("UPDATE `orders` set `day` = '$shift_day', `month` = '$shift_month', `year` = '$shift_year' WHERE `session_id` = '$order_id';"); 
 mysql_query("UPDATE `reports2` set `status` = 'done'  WHERE `session_id` = '$order_id';"); 
 
 		
