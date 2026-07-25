@@ -1,4 +1,4 @@
-﻿<?php session_start();
+<?php session_start();
  if( !isset($_SESSION['ps_user']) )
  {
 	include('login.php');
@@ -118,7 +118,7 @@ $result = mysql_query("SELECT * FROM `stock` WHERE name != '' group by name");
 {
 	  $thename = $row['name'];
 
-	  $result4 = mysql_query("SELECT *,SUM(num),SUM(price) FROM `ps_orders` WHERE `day` = '$D' AND `month` = $M AND `year` = $Y AND `name` = '$thename'");
+	  $result4 = mysql_query("SELECT ps_orders.*,SUM(num),SUM(price) FROM `ps_orders` INNER JOIN (SELECT DISTINCT session_id FROM reports WHERE `day` = '$D' AND `month` = $M AND `year` = $Y AND `status` = 'done') AS shift_sessions ON ps_orders.session_id = shift_sessions.session_id WHERE ps_orders.`name` = '$thename'");
 	  	while($roww4 = mysql_fetch_array($result4))
 {
 	$sum4 = $roww4['SUM(num)'];

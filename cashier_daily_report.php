@@ -1,4 +1,4 @@
-﻿<?php session_start();
+<?php session_start();
 if( !isset($_SESSION['ps_user']) )
 {
 	include('login.php');
@@ -26,7 +26,7 @@ $devices_total = cashier_sum_value("SELECT SUM(money) FROM reports WHERE day = '
 $device_discount_percent = cashier_sum_value("SELECT SUM(discount2) FROM reports WHERE day = '$today' AND month = '$this_month' AND year = '$Year' AND status = 'done' AND casheer = '$cashier_sql'");
 $device_discount_amount = cashier_sum_value("SELECT SUM(discount_amount) FROM reports WHERE day = '$today' AND month = '$this_month' AND year = '$Year' AND status = 'done' AND casheer = '$cashier_sql'");
 $orders_discount = cashier_sum_value("SELECT SUM(discount2) FROM reports2 WHERE day = '$today' AND month = '$this_month' AND year = '$Year' AND status = 'done' AND casheer = '$cashier_sql'");
-$ps_orders_total = cashier_sum_value("SELECT SUM(price) FROM ps_orders WHERE day = '$today' AND month = '$this_month' AND year = '$Year' AND status = 'yes' AND casheer = '$cashier_sql'");
+$ps_orders_total = cashier_sum_value("SELECT SUM(price) FROM ps_orders INNER JOIN (SELECT DISTINCT session_id FROM reports WHERE day = '$today' AND month = '$this_month' AND year = '$Year' AND status = 'done' AND casheer = '$cashier_sql') AS shift_sessions ON ps_orders.session_id = shift_sessions.session_id WHERE ps_orders.status = 'yes' AND ps_orders.casheer = '$cashier_sql'");
 $orders_total = cashier_sum_value("SELECT SUM(price) FROM reports2 WHERE day = '$today' AND month = '$this_month' AND year = '$Year' AND notes = 'order' AND status = 'done' AND casheer = '$cashier_sql'");
 $expenses_total = cashier_sum_value("SELECT SUM(price) FROM reports2 WHERE day = '$today' AND month = '$this_month' AND year = '$Year' AND catagory = 'exp' AND status = 'done' AND casheer = '$cashier_sql'");
 $income_total = cashier_sum_value("SELECT SUM(price) FROM reports2 WHERE day = '$today' AND month = '$this_month' AND year = '$Year' AND catagory = 'in' AND status = 'done' AND casheer = '$cashier_sql'");

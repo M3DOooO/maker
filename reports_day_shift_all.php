@@ -1,4 +1,4 @@
-﻿<?php session_start();
+<?php session_start();
  if( !isset($_SESSION['ps_user']) )
  {
 	include('login.php');
@@ -180,7 +180,7 @@ mysql_select_db("$db")or die("cannot select DB");
 	
   
 		 	
-			$query = "SELECT  SUM(price) FROM ps_orders where day = $today AND month = $this_month AND year = $Year AND `shift` = '$rshift'  AND `status` ='yes'"; 
+			$query = "SELECT SUM(price) FROM ps_orders INNER JOIN (SELECT DISTINCT session_id FROM reports WHERE day = $today AND month = $this_month AND year = $Year AND `shift` = '$rshift' AND `status` = 'done') AS shift_sessions ON ps_orders.session_id = shift_sessions.session_id WHERE ps_orders.`shift` = '$rshift' AND ps_orders.`status` ='yes'"; 
 
  
 $resulty = mysql_query($query) or die(mysql_error());

@@ -1,4 +1,4 @@
-﻿<?php session_start();
+<?php session_start();
  if( !isset($_SESSION['ps_user']) )
  {
 	include('login.php');
@@ -103,7 +103,7 @@ include('includes/config.php');
 // To connect to the database
 mysql_connect("$host", "$user", "$pass")or die("cannot connect");
 mysql_select_db("$db")or die("cannot select DB");
-$result = mysql_query("SELECT *,SUM(num),SUM(price) FROM `ps_orders` WHERE day = $D AND month = $M AND year = $Y  AND `shift` = '$rshift' group by name");
+$result = mysql_query("SELECT ps_orders.*,SUM(num),SUM(price) FROM `ps_orders` INNER JOIN (SELECT DISTINCT session_id FROM reports WHERE day = $D AND month = $M AND year = $Y AND `shift` = '$rshift' AND status = 'done') AS shift_sessions ON ps_orders.session_id = shift_sessions.session_id WHERE ps_orders.`shift` = '$rshift' group by ps_orders.name");
 ?><thead>
 <tr>
 								  <th><?php echo $lang_49;?></th>
