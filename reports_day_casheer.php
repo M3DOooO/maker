@@ -1,4 +1,4 @@
-﻿<?php session_start();
+<?php session_start();
  if( !isset($_SESSION['ps_user']) )
  {
 	include('login.php');
@@ -111,7 +111,7 @@ $resulty = mysql_query($query) or die(mysql_error());
 while($row = mysql_fetch_array($resulty)){
 $money_2 = $row['SUM(price)'];
 }
-$query = "SELECT  SUM(price) FROM ps_orders where day = '$D' AND month = '$M' AND year = '$Y' AND status = 'yes'"; 
+$query = "SELECT SUM(price) FROM ps_orders INNER JOIN (SELECT DISTINCT session_id FROM reports WHERE day = '$D' AND month = '$M' AND year = '$Y' AND status = 'done') AS shift_sessions ON ps_orders.session_id = shift_sessions.session_id WHERE ps_orders.status = 'yes'"; 
 $resulty = mysql_query($query) or die(mysql_error());
 while($row = mysql_fetch_array($resulty)){
 $money_3 = $row['SUM(price)'];
@@ -184,7 +184,7 @@ while($row3 = mysql_fetch_array($result3))
 $money2 = $row3['SUM(price)'];
 }
      //الأوردرات
-$result4 = mysql_query("SELECT *,SUM(price) FROM `ps_orders` WHERE day = '$D' AND month = '$M'  AND year = '$Y'  AND casheer = '$cahseer' AND status ='yes'");
+$result4 = mysql_query("SELECT ps_orders.*,SUM(price) FROM `ps_orders` INNER JOIN (SELECT DISTINCT session_id FROM reports WHERE day = '$D' AND month = '$M' AND year = '$Y' AND casheer = '$cahseer' AND status = 'done') AS shift_sessions ON ps_orders.session_id = shift_sessions.session_id WHERE ps_orders.casheer = '$cahseer' AND ps_orders.status ='yes'");
 while($row4 = mysql_fetch_array($result4))
 {
 $money3 = $row4['SUM(price)'];
@@ -268,7 +268,7 @@ while($row3 = mysql_fetch_array($result3))
 $money2 = $row3['SUM(price)'];
 }
      //الأوردرات
-$result4 = mysql_query("SELECT *,SUM(price) FROM `ps_orders` WHERE day = '$D' AND month = '$M'  AND year = '$Y'  AND casheer = '$cahseer' AND status ='yes'");
+$result4 = mysql_query("SELECT ps_orders.*,SUM(price) FROM `ps_orders` INNER JOIN (SELECT DISTINCT session_id FROM reports WHERE day = '$D' AND month = '$M' AND year = '$Y' AND casheer = '$cahseer' AND status = 'done') AS shift_sessions ON ps_orders.session_id = shift_sessions.session_id WHERE ps_orders.casheer = '$cahseer' AND ps_orders.status ='yes'");
 while($row4 = mysql_fetch_array($result4))
 {
 $money3 = 0;

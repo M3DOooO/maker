@@ -1,4 +1,4 @@
-﻿<?php session_start();
+<?php session_start();
  if( !isset($_SESSION['ps_user']) )
  {
 	include('login.php');
@@ -116,7 +116,7 @@ $resulty = mysql_query($query) or die(mysql_error());
 while($row = mysql_fetch_array($resulty)){
 $money_2 = $row['SUM(price)'];
 }
-$query = "SELECT  SUM(price) FROM ps_orders where day = '$D' AND month = '$M' AND year = '$Y' AND shift !=''  AND shift = '$selectshift'"; 
+$query = "SELECT SUM(price) FROM ps_orders INNER JOIN (SELECT DISTINCT session_id FROM reports WHERE day = '$D' AND month = '$M' AND year = '$Y' AND shift = '$selectshift' AND status = 'done') AS shift_sessions ON ps_orders.session_id = shift_sessions.session_id WHERE ps_orders.shift !='' AND ps_orders.shift = '$selectshift'"; 
 $resulty = mysql_query($query) or die(mysql_error());
 while($row = mysql_fetch_array($resulty)){
 $money_3 = $row['SUM(price)'];
@@ -192,7 +192,7 @@ while($row33 = mysql_fetch_array($result33))
 $disdis = $row33['SUM(discount2)'];
 }
      //الأوردرات
-$result4 = mysql_query("SELECT *,SUM(price) FROM `ps_orders` WHERE day = '$D' AND month = '$M'  AND year = '$Y'  AND shift = '$selectshift'");
+$result4 = mysql_query("SELECT ps_orders.*,SUM(price) FROM `ps_orders` INNER JOIN (SELECT DISTINCT session_id FROM reports WHERE day = '$D' AND month = '$M' AND year = '$Y' AND shift = '$selectshift' AND status = 'done') AS shift_sessions ON ps_orders.session_id = shift_sessions.session_id WHERE ps_orders.shift = '$selectshift'");
 while($row4 = mysql_fetch_array($result4))
 {
 $money3 = $row4['SUM(price)'];
@@ -281,7 +281,7 @@ while($row33 = mysql_fetch_array($result33))
 $disdis = $row33['SUM(discount2)'];
 }
      //الأوردرات
-$result4 = mysql_query("SELECT *,SUM(price) FROM `ps_orders` WHERE day = '$D' AND month = '$M'  AND year = '$Y'  AND shift = '$selectshift'");
+$result4 = mysql_query("SELECT ps_orders.*,SUM(price) FROM `ps_orders` INNER JOIN (SELECT DISTINCT session_id FROM reports WHERE day = '$D' AND month = '$M' AND year = '$Y' AND shift = '$selectshift' AND status = 'done') AS shift_sessions ON ps_orders.session_id = shift_sessions.session_id WHERE ps_orders.shift = '$selectshift'");
 while($row4 = mysql_fetch_array($result4))
 {
 $money3 = 0;

@@ -1,4 +1,4 @@
-﻿<?php session_start();
+<?php session_start();
  if( !isset($_SESSION['ps_user']) )
  {
 	include('login.php');
@@ -96,7 +96,7 @@ include('includes/config.php');
 // To connect to the database
 mysql_connect("$host", "$user", "$pass")or die("cannot connect");
 mysql_select_db("$db")or die("cannot select DB");
-$result = mysql_query("SELECT * FROM `ps_orders` WHERE day = $D AND month = $M AND year = $Y AND name = '$getname'");
+$result = mysql_query("SELECT ps_orders.* FROM `ps_orders` INNER JOIN (SELECT DISTINCT session_id FROM reports WHERE day = $D AND month = $M AND year = $Y AND status = 'done') AS shift_sessions ON ps_orders.session_id = shift_sessions.session_id WHERE ps_orders.name = '$getname'");
 ?><thead>
 <tr>
 								  <th>نوع الفاتورة</th>
