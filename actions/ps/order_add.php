@@ -82,8 +82,8 @@ while($row = mysql_fetch_array($result))
     $itcost = $itcosth * $qty;
     $new = $we_have + $qty;
  	$total = ($qty * $price);
-  	$Day = idate('d');
-	$Month = idate('m');
+  	$order_day = $shift_day;
+	$order_month = $shift_month;
 	$Year = idate('Y');
  
     mysql_connect("$host", "$user", "$pass") or die(mysql_error()); 
@@ -91,7 +91,7 @@ while($row = mysql_fetch_array($result))
 	if ($qty > 0)
 	{
 			// echo $name ;
-    mysql_query("INSERT INTO `ps_orders` (`catagory`, `sub_cat`,`name`, `price`, `num` , `ps_id` ,`session_id`,`day`,`month`,`year`,`hour`) VALUES ('$catagory', '$sub_cat', '$name','$total','$qty','$ps_id','$session','$Day','$Month','$Year','$Hour');"); 
+    mysql_query("INSERT INTO `ps_orders` (`catagory`, `sub_cat`,`name`, `price`, `num` , `ps_id` ,`session_id`,`day`,`month`,`year`,`hour`) VALUES ('$catagory', '$sub_cat', '$name','$total','$qty','$ps_id','$session','$order_day','$order_month','$Year','$Hour');"); 
     mysql_query("UPDATE `stock` set `sold` = '$new'  WHERE `name` = '$name' AND date = '$mindate';"); 
 
 	 mysql_query("UPDATE `stock` set `sold` = '$new'  WHERE `name` = '$var1' AND date = '$mindate';"); 
