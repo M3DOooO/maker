@@ -3,7 +3,7 @@
  {
 	include('login.php');
 	    die();
-} 
+}
 include('includes/config.php');
 if($lang == 'en'){include('languages/en.php');}else if($lang == 'ar'){include('languages/ar.php');}
 mysql_connect("$host", "$user", "$pass")or die("cannot connect");
@@ -16,9 +16,9 @@ while($row = mysql_fetch_array($result))
 	$usern = $row['type'];
 }
 if($usern != 1 ){echo "<script>location='devices.php'</script>";}
-$id = $_GET['id']; 
-$date = $_GET['date']; 
-$sess = $_GET['session'];  
+$id = $_GET['id'];
+$date = $_GET['date'];
+$sess = $_GET['session'];
 $rday = $_GET['day'];
 $rmonth = $_GET['month'];
 $ryear = $_GET['year'];
@@ -60,46 +60,46 @@ function newPopup2(url) {
 <!-- topbar ends -->
 		<div class="container-fluid">
 		<div class="row-fluid">
-				
+
 <!-- left menu starts -->
 <?php include('includes/menu.php');?>
 <!-- left menu ends -->
-			
+
 			<noscript>
 				<div class="alert alert-block span10">
 					<h4 class="alert-heading">Warning!</h4>
 					<p>You need to have <a href="http://en.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a> enabled to use this site.</p>
 				</div>
 			</noscript>
-			
+
 			<div id="content" class="span10">
 			<div style="border-style:solid;border-width:1px;padding:15px;margin-right: 50px;">
 			<a href="reports.php"><span>التقارير</span></a> / <a href="reports_day.php?day=<?php echo $rday;?>&month=<?php echo $rmonth;?>&year=<?php echo $ryear;?>"><span>تقارير يوم <?php echo $ryear?>-<?php echo $rmonth?>-<?php echo $rday?></span></a> / <span>فواتير الاجهزة</span>
 			</div>
 			<!-- content starts -->
 
-<div class="row-fluid">		
+<div class="row-fluid">
 				<div class="box span11">
 					<div class="box-header well" data-original-title>
 						<h2><i class="icon-user"></i> <?php echo $lang_158;?> </h2>
-						
+
 					</div>
- 					
+
 					<div class="box-content">
 						<table class="table table-striped table-bordered bootstrap-datatable datatable">
-						  <?php 
-								
+						  <?php
+
 include('includes/config.php');
 mysql_connect("$host", "$user", "$pass")or die("cannot connect");
-mysql_select_db("$db")or die("cannot select DB");		
-$query = "SELECT  SUM(money) FROM reports WHERE day = $rday AND month = $rmonth AND year = $ryear  AND status = 'done'"; 
+mysql_select_db("$db")or die("cannot select DB");
+$query = "SELECT  SUM(money) FROM reports WHERE day = $rday AND month = $rmonth AND year = $ryear  AND status = 'done'";
 $resulty = mysql_query($query) or die(mysql_error());
 // Print out result
 while($row = mysql_fetch_array($resulty)){
-$items = $row['SUM(money)'];  
+$items = $row['SUM(money)'];
  }
 // To connect to the database
-$result = mysql_query("SELECT *, SUM(money) as sum_money_rows, SUM(total) as sum_total_rows, MIN(Start_hour*60 + Start_minute) as min_start_minute, MAX(End_hour*60 + End_minute) as max_end_minute FROM `reports` WHERE day = $rday AND month = $rmonth AND year = $ryear AND End_hour != '-' AND status = 'done' GROUP BY session_id"); 
+$result = mysql_query("SELECT *, SUM(money) as sum_money_rows, SUM(total) as sum_total_rows, MIN(Start_hour*60 + Start_minute) as min_start_minute, MAX(End_hour*60 + End_minute) as max_end_minute FROM `reports` WHERE day = $rday AND month = $rmonth AND year = $ryear AND End_hour != '-' AND status = 'done' GROUP BY session_id ORDER BY max_end_minute");
  ?><thead>
 <tr>
 								  <th><?php echo $lang_149;?></th>
@@ -117,24 +117,24 @@ $result = mysql_query("SELECT *, SUM(money) as sum_money_rows, SUM(total) as sum
  								  <th><?php echo $lang_106;?></th>
 								  <th><?php echo $lang_154;?></th>
 </tr>
-</thead> 	  						   
+</thead>
 <tbody>
-		<?php 
+		<?php
 while($row = mysql_fetch_array($result))
 {
 		$se_se = $row['session_id'];
 
-$resultki = mysql_query("SELECT SUM(price) FROM `ps_orders` WHERE `session_id` = '$se_se'"); 
+$resultki = mysql_query("SELECT SUM(price) FROM `ps_orders` WHERE `session_id` = '$se_se'");
 while($rowt = mysql_fetch_array($resultki))
 {
 	$sum_items = $rowt['SUM(price)'];
 }
-$resultki2 = mysql_query("SELECT SUM(money) FROM `reports` WHERE `session_id` = '$se_se'"); 
+$resultki2 = mysql_query("SELECT SUM(money) FROM `reports` WHERE `session_id` = '$se_se'");
 while($rowt2 = mysql_fetch_array($resultki2))
 {
 	$sum_money = $rowt2['SUM(money)'];
 }
-$resultki3 = mysql_query("SELECT SUM(discount2),SUM(discount_amount) FROM `reports` WHERE `session_id` = '$se_se'"); 
+$resultki3 = mysql_query("SELECT SUM(discount2),SUM(discount_amount) FROM `reports` WHERE `session_id` = '$se_se'");
 while($rowt3 = mysql_fetch_array($resultki3))
 {
 	$discount = $rowt3['SUM(discount2)']+ $rowt3['SUM(discount_amount)'];
@@ -151,7 +151,7 @@ $start_minute = $start_total_minutes % 60;
 $end_hour = floor($end_total_minutes / 60);
 $end_minute = $end_total_minutes % 60;
 $shift_check = $row['shift'];
-// $resultki3 = mysql_query("SELECT SUM(discount2),SUM(discount_amount) FROM `reports` WHERE `session_id` = '$se_se'"); 
+// $resultki3 = mysql_query("SELECT SUM(discount2),SUM(discount_amount) FROM `reports` WHERE `session_id` = '$se_se'");
 $total = $sum_money + $sum_items - $discount + $row['tax'] + $row['service'];
 // $hdiff =  $row['End_hour'] - $row['Start_hour'];
 // $mdiff =  $row['End_minute'] - $row['Start_minute'];
@@ -165,31 +165,31 @@ $total = $sum_money + $sum_items - $discount + $row['tax'] + $row['service'];
    echo "<td>" . $row['name'] . "</td>";
 ?>
    <td>
-   <?php 
+   <?php
 $thetype = $row['type'];
  switch($thetype)
 		{
-		CASE 'single':   echo $lang_3;	BREAK;		
-		CASE 'multi':   echo $lang_4;	BREAK;		
-		CASE 'multi6':   echo $lang_6;	BREAK;		
-		CASE 'multi7':   echo $lang_7;	BREAK;		
-		} 
+		CASE 'single':   echo $lang_3;	BREAK;
+		CASE 'multi':   echo $lang_4;	BREAK;
+		CASE 'multi6':   echo $lang_6;	BREAK;
+		CASE 'multi7':   echo $lang_7;	BREAK;
+		}
    ?>
    </td><?php    echo "<td>" . $shift_check2 . "</td>";
    echo "<td>" . $row['year'] ."/". $row['month'] . "/" . $row['day']. "</td>";
    echo "<td>" . sprintf('%02d', $start_hour).":" .sprintf('%02d', $start_minute)."</td>";
    echo "<td>" . sprintf('%02d', $end_hour).":" .sprintf('%02d', $end_minute)."</td>";
-?><td><?php  echo $hr; ?>:<?php  echo $mr; ?>:<?php  echo $sr; ?></td><?php 
+?><td><?php  echo $hr; ?>:<?php  echo $mr; ?>:<?php  echo $sr; ?></td><?php
      echo "<td>" . $sum_items ." ".$lang_100. "</td>";
      echo "<td>" . $sum_money ." ".$lang_100. "</td>";
    echo "<td><font color='red'>" . $discount ." ".$lang_100. "</font></td>";
-   ?><td><?php echo $row['service']." ", $lang_100;?><hr/><?php echo $row['tax']." ", $lang_100;?></td> <?php 
+   ?><td><?php echo $row['service']." ", $lang_100;?><hr/><?php echo $row['tax']." ", $lang_100;?></td> <?php
    echo "<td><b><font color='green'>" . $total ." ".$lang_100. "</font></b></td>";
    echo '<td><a class="btn btn-success" target="_blank" href="reports_ps_summary.php?s='.$row['session_id'].'">'.'<i class="icon-zoom-in icon-white"></i>'.$lang_107.'</a></td>';
     echo "</tr>";
   }?>
 						  </tbody>
-					  </table>            
+					  </table>
 					</div>
 				</div><!--/span-->
 			</div><!--/row-->
@@ -213,12 +213,12 @@ $thetype = $row['type'];
 
 		<footer>
 			<p class="pull-left">&copy; <a href="http://www.psxegy.com" target="_blank">Gesture For Playstation</a> <?php $Year = idate('Y');   echo $Year;?></p>
-			
+
 		</footer>
-		
+
 	</div><!--/.fluid-container-->
 <?php  include 'includes/js.php';?>
 
-		
+
 </body>
 </html>
